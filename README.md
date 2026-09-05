@@ -8,27 +8,27 @@ I explore the intersection of **psychology, sociology, organizational behavior, 
 
 My work focuses on connecting big societal problems to the individual decisions, group dynamics, incentives, and institutional structures that shape them.
 
-## 🧠 What I'm Interested In
+## What I'm Interested In
 
-🧠 **Psychology & Cognition**  
+**Psychology & Cognition**  
 How people think, decide, adapt, believe, and behave.
 
-👥 **Groups & Organizations**  
-Leadership, cooperation, conflict, culture, incentives, and collective decision-making.
+**Groups & Organizations**  
+Leadership, religion, cooperation, conflict, culture, incentives, and collective decision-making.
 
-🏛️ **Governance & Institutions**  
+**Governance & Institutions**  
 How systems distribute power, resources, responsibility, and opportunity.
 
-🤖 **Technology & Society**  
+**Technology & Society**  
 How technology changes human behavior, organizations, and systems of power.
 
-⚖️ **Criminal Justice**  
+**Criminal Justice**  
 Behavior, rehabilitation, probation, prevention, and alternatives to traditional systems.
 
-🌎 **Humanitarian Systems**  
+**Humanitarian Systems**  
 Poverty, food security, inequality, community development, and scalable solutions.
 
-♟️ **Strategic Decision-Making**  
+**Strategic Decision-Making**  
 Game theory, risk, probability, optimization, and the psychology of choice.
 
 ---
