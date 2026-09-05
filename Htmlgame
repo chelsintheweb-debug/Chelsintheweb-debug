@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>RobotFriend</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="game">
+
+    <!-- =========================
+         TITLE
+    ========================== -->
+
+    <header class="topbar">
+
+      <div>
+        <div class="tiny">A TINY LIFE SIMULATOR</div>
+        <h1>🤖 RobotFriend</h1>
+      </div>
+
+      <div class="day-box">
+        <span>DAY</span>
+        <strong id="day">1</strong>
+      </div>
+
+    </header>
+
+
+    <!-- =========================
+         CHARACTER CREATION
+    ========================== -->
+
+    <section id="characterScreen" class="screen">
+
+      <div class="hero">
+
+        <div class="robot">🤖</div>
+
+        <h2>Let's make a person.</h2>
+
+        <p>
+          You get one life. Probably.
+          Let's see what you do with it.
+        </p>
+
+      </div>
+
+      <div class="creation-card">
+
+        <label>Your name</label>
+
+        <input
+          id="playerName"
+          type="text"
+          maxlength="20"
+          placeholder="What should RobotFriend call you?"
+        >
+
+        <label>Choose your personality</label>
+
+        <div class="personality-grid">
+
+          <button
+            class="personality"
+            onclick="choosePersonality('strategist', this)"
+          >
+            🧠
+            <strong>The Strategist</strong>
+            <small>Think first. Probably.</small>
+          </button>
+
+          <button
+            class="personality"
+            onclick="choosePersonality('social', this)"
+          >
+            ❤️
+            <strong>The Connector</strong>
+            <small>People are everything.</small>
+          </button>
+
+          <button
+            class="personality"
+            onclick="choosePersonality('wild', this)"
+          >
+            🎲
+            <strong>The Wild Card</strong>
+            <small>Let's see what happens.</small>
+          </button>
+
+          <button
+            class="personality"
+            onclick="choosePersonality('builder', this)"
+          >
+            🔨
+            <strong>The Builder</strong>
+            <small>Make something that lasts.</small>
+          </button>
+
+        </div>
+
+        <button
+          id="startButton"
+          class="primary"
+          onclick="startGame()"
+          disabled
+        >
+          BEGIN LIFE →
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         MAIN GAME
+    ========================== -->
+
+    <section id="gameScreen" class="screen hidden">
+
+      <!-- STATS -->
+
+      <div class="stats">
+
+        <div class="stat">
+          <span>💰</span>
+          <small>MONEY</small>
+          <strong id="money">$2,000</strong>
+        </div>
+
+        <div class="stat">
+          <span>🧠</span>
+          <small>KNOWLEDGE</small>
+          <strong id="knowledge">50</strong>
+        </div>
+
+        <div class="stat">
+          <span>❤️</span>
+          <small>HAPPINESS</small>
+          <strong id="happiness">65</strong>
+        </div>
+
+        <div class="stat">
+          <span>⚡</span>
+          <small>ENERGY</small>
+          <strong id="energy">80</strong>
+        </div>
+
+        <div class="stat">
+          <span>👥</span>
+          <small>PEOPLE</small>
+          <strong id="relationships">40</strong>
+        </div>
+
+        <div class="stat">
+          <span>💼</span>
+          <small>CAREER</small>
+          <strong id="career">35</strong>
+        </div>
+
+        <div class="stat">
+          <span>🍀</span>
+          <small>LUCK</small>
+          <strong id="luck">50</strong>
+        </div>
+
+      </div>
+
+
+      <!-- LIFE EVENT -->
+
+      <main class="event">
+
+        <div class="event-category" id="eventCategory">
+          LIFE EVENT
+        </div>
+
+        <h2 id="eventTitle">
+          Welcome to your life.
+        </h2>
+
+        <p id="eventDescription">
+          Something is about to happen.
+        </p>
+
+        <div id="choices" class="choices"></div>
+
+      </main>
+
+
+      <!-- LOG -->
+
+      <aside class="life-log">
+
+        <div class="log-title">
+          <span>📓</span>
+          LIFE LOG
+        </div>
+
+        <div id="log"></div>
+
+      </aside>
+
+    </section>
+
+
+    <!-- =========================
+         ENDING
+    ========================== -->
+
+    <section id="endingScreen" class="screen hidden">
+
+      <div class="ending">
+
+        <div class="robot">🤖</div>
+
+        <div class="tiny">LIFE COMPLETE</div>
+
+        <h2 id="endingTitle">
+          Interesting.
+        </h2>
+
+        <p id="endingDescription"></p>
+
+        <div id="finalStats" class="final-stats"></div>
+
+        <div class="personality-result">
+
+          <div class="tiny">ROBOTFRIEND OBSERVATION</div>
+
+          <h3 id="profileName"></h3>
+
+          <p id="profileDescription"></p>
+
+        </div>
+
+        <button class="primary" onclick="location.reload()">
+          LIVE AGAIN →
+        </button>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <script src="game.js"></script>
+
+</body>
+</html>
