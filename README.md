@@ -10,8 +10,6 @@ I explore the intersection of **psychology, sociology, organizational behavior, 
 
 My work focuses on connecting big societal problems to the individual decisions, group dynamics, incentives, and institutional structures that shape them.
 
----
-
 ## 🧠 What I'm Interested In
 
 🧠 **Psychology & Cognition**  
