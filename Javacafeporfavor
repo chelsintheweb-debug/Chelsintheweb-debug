@@ -1,0 +1,680 @@
+const state = {
+  day: 1,
+  money: 2000,
+  knowledge: 50,
+  happiness: 65,
+  energy: 80,
+  relationships: 40,
+  luck: 50,
+  career: 35,
+
+  risk: 50,
+  patience: 50,
+  social: 50,
+  ambition: 50,
+  impulsivity: 50,
+  cooperation: 50,
+  chaos: 50
+};
+
+const events = [
+
+  {
+    label: "CAREER",
+    title: "Your boss has a proposition.",
+    description:
+      "The promotion comes with more money, more responsibility, and significantly less free time.",
+    choices: [
+      {
+        title: "TAKE IT",
+        description: "More money. More pressure.",
+        effects: {
+          money: 1500,
+          career: 15,
+          happiness: -8,
+          energy: -15,
+          ambition: 10,
+          risk: 5
+        }
+      },
+      {
+        title: "NEGOTIATE",
+        description: "Ask for better terms.",
+        effects: {
+          money: 700,
+          career: 8,
+          happiness: 3,
+          patience: 7,
+          ambition: 5
+        }
+      },
+      {
+        title: "DECLINE",
+        description: "Protect your free time.",
+        effects: {
+          happiness: 8,
+          energy: 10,
+          career: -3,
+          patience: 8
+        }
+      },
+      {
+        title: "QUIT",
+        description: "Burn the bridge. Build something else.",
+        effects: {
+          money: -500,
+          career: 5,
+          happiness: 15,
+          energy: 5,
+          risk: 15,
+          chaos: 10
+        }
+      }
+    ]
+  },
+
+  {
+    label: "MONEY",
+    title: "You receive an unexpected $1,000.",
+    description:
+      "Nobody knows why. Nobody is asking questions. Yet.",
+    choices: [
+      {
+        title: "SAVE IT",
+        description: "Future-you says thanks.",
+        effects: {
+          money: 1000,
+          patience: 12
+        }
+      },
+      {
+        title: "INVEST IT",
+        description: "Maybe money makes money.",
+        effects: {
+          money: 1400,
+          luck: -5,
+          risk: 12
+        }
+      },
+      {
+        title: "SPEND IT",
+        description: "Future-you can deal with it.",
+        effects: {
+          money: 1000,
+          happiness: 15,
+          energy: 5,
+          impulsivity: 12
+        }
+      },
+      {
+        title: "HELP SOMEONE",
+        description: "Give it away.",
+        effects: {
+          money: 0,
+          happiness: 10,
+          relationships: 15,
+          cooperation: 15,
+          social: 8
+        }
+      }
+    ]
+  },
+
+  {
+    label: "SOCIAL",
+    title: "Your friends are going out tonight.",
+    description:
+      "You are exhausted. They insist this will be 'good for you.'",
+    choices: [
+      {
+        title: "GO OUT",
+        description: "Sleep is overrated.",
+        effects: {
+          happiness: 12,
+          relationships: 10,
+          energy: -20,
+          social: 12
+        }
+      },
+      {
+        title: "STAY HOME",
+        description: "Your couch understands you.",
+        effects: {
+          happiness: 5,
+          energy: 15,
+          social: -8,
+          patience: 5
+        }
+      },
+      {
+        title: "HOST EVERYONE",
+        description: "Turn your house into the venue.",
+        effects: {
+          happiness: 10,
+          relationships: 15,
+          energy: -15,
+          social: 15,
+          cooperation: 8
+        }
+      },
+      {
+        title: "GO SOMEWHERE RANDOM",
+        description: "Let fate decide.",
+        effects: {
+          happiness: 8,
+          relationships: 3,
+          energy: -10,
+          chaos: 20,
+          luck: 8
+        }
+      }
+    ]
+  },
+
+  {
+    label: "KNOWLEDGE",
+    title: "You have the opportunity to take a difficult course.",
+    description:
+      "It will consume your evenings for three months.",
+    choices: [
+      {
+        title: "DO IT",
+        description: "Become aggressively knowledgeable.",
+        effects: {
+          knowledge: 20,
+          career: 8,
+          energy: -15,
+          patience: 12,
+          ambition: 10
+        }
+      },
+      {
+        title: "TAKE THE EASY COURSE",
+        description: "Knowledge, but make it comfortable.",
+        effects: {
+          knowledge: 8,
+          energy: -5,
+          happiness: 3
+        }
+      },
+      {
+        title: "LEARN ON YOUR OWN",
+        description: "No syllabus required.",
+        effects: {
+          knowledge: 15,
+          patience: 10,
+          energy: -5
+        }
+      },
+      {
+        title: "ABSOLUTELY NOT",
+        description: "You already know enough.",
+        effects: {
+          happiness: 5,
+          energy: 10,
+          impulsivity: 5
+        }
+      }
+    ]
+  },
+
+  {
+    label: "RELATIONSHIPS",
+    title: "Someone you care about needs help moving.",
+    description:
+      "They promise pizza. They also have approximately seventeen boxes of books.",
+    choices: [
+      {
+        title: "HELP",
+        description: "Friendship is heavy.",
+        effects: {
+          relationships: 20,
+          happiness: 8,
+          energy: -20,
+          cooperation: 15
+        }
+      },
+      {
+        title: "HELP FOR PIZZA",
+        description: "Negotiation is still friendship.",
+        effects: {
+          relationships: 12,
+          happiness: 7,
+          energy: -15,
+          money: 20
+        }
+      },
+      {
+        title: "SEND MONEY",
+        description: "Outsource the lifting.",
+        effects: {
+          relationships: 8,
+          money: -100,
+          energy: 5,
+          cooperation: 8
+        }
+      },
+      {
+        title: "DISAPPEAR",
+        description: "You suddenly become extremely difficult to reach.",
+        effects: {
+          relationships: -15,
+          happiness: 3,
+          energy: 5,
+          impulsivity: 8
+        }
+      }
+    ]
+  },
+
+  {
+    label: "RISK",
+    title: "A risky opportunity appears.",
+    description:
+      "Potentially life-changing. Potentially a spectacular mistake.",
+    choices: [
+      {
+        title: "GO ALL IN",
+        description: "YOLO, but with spreadsheets.",
+        effects: {
+          money: 1800,
+          career: 15,
+          risk: 20,
+          luck: -5,
+          chaos: 12
+        }
+      },
+      {
+        title: "TEST IT FIRST",
+        description: "Small bet. Small disaster.",
+        effects: {
+          money: 500,
+          career: 8,
+          risk: 8,
+          patience: 8
+        }
+      },
+      {
+        title: "PASS",
+        description: "Not every door needs opening.",
+        effects: {
+          happiness: 5,
+          patience: 10,
+          risk: -8
+        }
+      },
+      {
+        title: "ASK EVERYONE",
+        description: "Crowdsource your existential crisis.",
+        effects: {
+          relationships: 8,
+          knowledge: 8,
+          social: 10,
+          cooperation: 8
+        }
+      }
+    ]
+  },
+
+  {
+    label: "BAD WEEK",
+    title: "Everything goes wrong.",
+    description:
+      "Your plans collapse. Your coffee is cold. Someone says 'circle back.'",
+    choices: [
+      {
+        title: "PUSH THROUGH",
+        description: "You refuse to be defeated.",
+        effects: {
+          career: 5,
+          happiness: -8,
+          energy: -15,
+          ambition: 8
+        }
+      },
+      {
+        title: "TAKE A BREAK",
+        description: "You are a human, not a machine.",
+        effects: {
+          happiness: 10,
+          energy: 20,
+          career: -2
+        }
+      },
+      {
+        title: "CALL A FRIEND",
+        description: "Humans are collaborative creatures.",
+        effects: {
+          relationships: 12,
+          happiness: 10,
+          social: 10
+        }
+      },
+      {
+        title: "MAKE A RADICAL CHANGE",
+        description: "Clearly the solution is chaos.",
+        effects: {
+          happiness: 12,
+          energy: -5,
+          career: 5,
+          chaos: 20,
+          risk: 15
+        }
+      }
+    ]
+  },
+
+  {
+    label: "CHOICE",
+    title: "You find yourself at a fork in the road.",
+    description:
+      "There are no instructions. There rarely are.",
+    choices: [
+      {
+        title: "FOLLOW THE PLAN",
+        description: "Structure creates momentum.",
+        effects: {
+          career: 10,
+          knowledge: 5,
+          patience: 10
+        }
+      },
+      {
+        title: "FOLLOW YOUR GUT",
+        description: "Your brain has opinions.",
+        effects: {
+          happiness: 10,
+          luck: 5,
+          impulsivity: 10
+        }
+      },
+      {
+        title: "ASK FOR HELP",
+        description: "Intelligence includes knowing when to collaborate.",
+        effects: {
+          knowledge: 8,
+          relationships: 10,
+          cooperation: 12
+        }
+      },
+      {
+        title: "MAKE A COMPLETELY DIFFERENT ROAD",
+        description: "There is technically no rulebook.",
+        effects: {
+          happiness: 15,
+          chaos: 25,
+          risk: 15,
+          career: 5
+        }
+      }
+    ]
+  }
+
+];
+
+let eventIndex = 0;
+
+function startGame() {
+
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("gameScreen").classList.remove("hidden");
+
+  updateStats();
+  showEvent();
+
+}
+
+function showEvent() {
+
+  if (state.day > 12) {
+    endGame();
+    return;
+  }
+
+  const event = events[eventIndex % events.length];
+
+  document.getElementById("eventLabel").textContent = event.label;
+  document.getElementById("eventTitle").textContent = event.title;
+  document.getElementById("eventDescription").textContent =
+    event.description;
+
+  const choices = document.getElementById("choices");
+
+  choices.innerHTML = "";
+
+  event.choices.forEach((choice, index) => {
+
+    const button = document.createElement("button");
+
+    button.className = "choice";
+
+    button.innerHTML = `
+      <span class="choice-title">${choice.title}</span>
+      <span class="choice-description">${choice.description}</span>
+    `;
+
+    button.onclick = () => makeChoice(choice, event);
+
+    choices.appendChild(button);
+
+  });
+
+}
+
+function makeChoice(choice, event) {
+
+  applyEffects(choice.effects);
+
+  addLog(`${event.label}: ${choice.title}`);
+
+  state.day++;
+
+  eventIndex++;
+
+  document.getElementById("day").textContent = state.day;
+
+  updateStats();
+
+  showEvent();
+
+}
+
+function applyEffects(effects) {
+
+  Object.entries(effects).forEach(([key, value]) => {
+
+    if (state[key] !== undefined) {
+      state[key] += value;
+    }
+
+  });
+
+  clampStats();
+
+}
+
+function clampStats() {
+
+  const stats = [
+    "knowledge",
+    "happiness",
+    "energy",
+    "relationships",
+    "luck",
+    "career",
+    "risk",
+    "patience",
+    "social",
+    "ambition",
+    "impulsivity",
+    "cooperation",
+    "chaos"
+  ];
+
+  stats.forEach(stat => {
+
+    state[stat] = Math.max(
+      0,
+      Math.min(100, state[stat])
+    );
+
+  });
+
+  state.money = Math.max(0, state.money);
+
+}
+
+function updateStats() {
+
+  document.getElementById("money").textContent =
+    `$${Math.round(state.money).toLocaleString()}`;
+
+  document.getElementById("knowledge").textContent =
+    Math.round(state.knowledge);
+
+  document.getElementById("happiness").textContent =
+    Math.round(state.happiness);
+
+  document.getElementById("energy").textContent =
+    Math.round(state.energy);
+
+  document.getElementById("relationships").textContent =
+    Math.round(state.relationships);
+
+  document.getElementById("luck").textContent =
+    Math.round(state.luck);
+
+  document.getElementById("career").textContent =
+    Math.round(state.career);
+
+}
+
+function addLog(message) {
+
+  const log = document.getElementById("logEntries");
+
+  const entry = document.createElement("p");
+
+  entry.textContent = `DAY ${state.day}: ${message}`;
+
+  log.prepend(entry);
+
+}
+
+function getProfile() {
+
+  const scores = {
+
+    "The Strategist":
+      state.knowledge +
+      state.patience +
+      state.career,
+
+    "The Connector":
+      state.relationships +
+      state.social +
+      state.cooperation,
+
+    "The Wild Card":
+      state.risk +
+      state.chaos +
+      state.impulsivity,
+
+    "The Builder":
+      state.career +
+      state.ambition +
+      state.patience,
+
+    "The Explorer":
+      state.happiness +
+      state.risk +
+      state.chaos
+
+  };
+
+  return Object.entries(scores)
+    .sort((a, b) => b[1] - a[1])[0][0];
+
+}
+
+function endGame() {
+
+  document.getElementById("gameScreen").classList.add("hidden");
+  document.getElementById("ending").classList.remove("hidden");
+
+  const profile = getProfile();
+
+  const endingTitle =
+    document.getElementById("endingTitle");
+
+  const endingText =
+    document.getElementById("endingText");
+
+  const messages = {
+
+    "The Strategist":
+      "You treated life like a giant puzzle. You collected information, thought several moves ahead, and occasionally remembered to actually live.",
+
+    "The Connector":
+      "You discovered that people are infrastructure. Your relationships became one of your most valuable resources.",
+
+    "The Wild Card":
+      "You made choices that would make a statistician nervous. Somehow, chaos kept producing interesting outcomes.",
+
+    "The Builder":
+      "You were focused on creating something that lasts. Progress, structure, and long-term thinking shaped your trajectory.",
+
+    "The Explorer":
+      "You valued experience over certainty. Your life became less predictable—and considerably more interesting."
+
+  };
+
+  endingTitle.textContent = profile;
+
+  endingText.textContent =
+    messages[profile];
+
+  const finalStats =
+    document.getElementById("finalStats");
+
+  finalStats.innerHTML = `
+
+    <div class="final-stat">
+      <small>Money</small>
+      <strong>$${Math.round(state.money).toLocaleString()}</strong>
+    </div>
+
+    <div class="final-stat">
+      <small>Happiness</small>
+      <strong>${Math.round(state.happiness)}</strong>
+    </div>
+
+    <div class="final-stat">
+      <small>Knowledge</small>
+      <strong>${Math.round(state.knowledge)}</strong>
+    </div>
+
+    <div class="final-stat">
+      <small>Relationships</small>
+      <strong>${Math.round(state.relationships)}</strong>
+    </div>
+
+    <div class="final-stat">
+      <small>Career</small>
+      <strong>${Math.round(state.career)}</strong>
+    </div>
+
+    <div class="final-stat">
+      <small>Chaos</small>
+      <strong>${Math.round(state.chaos)}</strong>
+    </div>
+
+  `;
+
+}
+
+function restartGame() {
+
+  location.reload();
+
+}
