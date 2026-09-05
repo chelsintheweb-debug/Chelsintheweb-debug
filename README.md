@@ -1,6 +1,4 @@
-## Hi there 👋
-
-# Chelsea R. Dahlen
+# Hi, it’s Chelsea Dahlen
 
 ### 🔬 Research • Systems • Human Behavior • Strategy
 
