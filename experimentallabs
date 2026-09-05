@@ -1,0 +1,132 @@
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RobotFriend — A Tiny Life Decision Simulator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main class="game">
+
+    <header class="header">
+      <div>
+        <p class="eyebrow">CHELSEA'S EXPERIMENTAL SYSTEMS LAB</p>
+        <h1>🤖 RobotFriend</h1>
+        <p class="tagline">A tiny life decision simulator.</p>
+      </div>
+
+      <div class="day">
+        DAY <span id="day">1</span>
+      </div>
+    </header>
+
+    <section class="intro" id="intro">
+      <h2>One life.</h2>
+      <h2>A thousand decisions.</h2>
+      <p>
+        Some skill. Some luck. Mostly questionable choices.
+      </p>
+
+      <button onclick="startGame()">START LIFE</button>
+    </section>
+
+    <section id="gameScreen" class="hidden">
+
+      <section class="stats">
+
+        <div class="stat">
+          <span>💰</span>
+          <label>Money</label>
+          <strong id="money">$2,000</strong>
+        </div>
+
+        <div class="stat">
+          <span>🧠</span>
+          <label>Knowledge</label>
+          <strong id="knowledge">50</strong>
+        </div>
+
+        <div class="stat">
+          <span>❤️</span>
+          <label>Happiness</label>
+          <strong id="happiness">65</strong>
+        </div>
+
+        <div class="stat">
+          <span>⚡</span>
+          <label>Energy</label>
+          <strong id="energy">80</strong>
+        </div>
+
+        <div class="stat">
+          <span>👥</span>
+          <label>Relationships</label>
+          <strong id="relationships">40</strong>
+        </div>
+
+        <div class="stat">
+          <span>🎲</span>
+          <label>Luck</label>
+          <strong id="luck">50</strong>
+        </div>
+
+        <div class="stat">
+          <span>📈</span>
+          <label>Career</label>
+          <strong id="career">35</strong>
+        </div>
+
+      </section>
+
+      <section class="event-card">
+
+        <p class="event-label" id="eventLabel">LIFE EVENT</p>
+
+        <h2 id="eventTitle">Your boss has a proposition.</h2>
+
+        <p id="eventDescription">
+          The promotion comes with more money, more responsibility,
+          and significantly less free time.
+        </p>
+
+        <div id="choices" class="choices"></div>
+
+      </section>
+
+      <section class="log">
+
+        <h3>Life Log</h3>
+
+        <div id="logEntries">
+          <p>You opened your eyes.</p>
+        </div>
+
+      </section>
+
+    </section>
+
+    <section id="ending" class="ending hidden">
+
+      <p class="eyebrow">LIFE COMPLETE</p>
+
+      <h2 id="endingTitle">Interesting.</h2>
+
+      <p id="endingText"></p>
+
+      <div class="final-stats" id="finalStats"></div>
+
+      <button onclick="restartGame()">LIVE AGAIN</button>
+
+    </section>
+
+  </main>
+
+  <script src="game.js"></script>
+
+</body>
+</html>
