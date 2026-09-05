@@ -1,0 +1,1810 @@
+/* =========================================================
+   ROBOTFRIEND
+   A Tiny Life Decision Simulator
+========================================================= */
+
+
+/* =========================================================
+   PLAYER STATE
+========================================================= */
+
+const player = {
+
+  name: "",
+
+  personality: "",
+
+  day: 1,
+
+  money: 2000,
+
+  knowledge: 50,
+
+  happiness: 65,
+
+  energy: 80,
+
+  relationships: 40,
+
+  career: 35,
+
+  luck: 50,
+
+
+  /* Hidden behavioral dimensions */
+
+  risk: 50,
+
+  patience: 50,
+
+  social: 50,
+
+  ambition: 50,
+
+  impulsivity: 50,
+
+  cooperation: 50,
+
+  chaos: 50
+
+};
+
+
+/* =========================================================
+   PERSONALITY STARTING BONUSES
+========================================================= */
+
+const personalities = {
+
+  strategist: {
+
+    name: "The Strategist",
+
+    description:
+      "You tend to think several moves ahead. You like information, options, and knowing what happens next.",
+
+    bonuses: {
+
+      knowledge: 10,
+      patience: 15,
+      ambition: 5,
+      risk: -5
+
+    }
+
+  },
+
+
+  social: {
+
+    name: "The Connector",
+
+    description:
+      "You see people as part of the system. Relationships, cooperation, and shared experiences matter to you.",
+
+    bonuses: {
+
+      relationships: 15,
+      social: 15,
+      cooperation: 10,
+      career: 5
+
+    }
+
+  },
+
+
+  wild: {
+
+    name: "The Wild Card",
+
+    description:
+      "You are comfortable with uncertainty. You would rather discover what happens than spend forever predicting it.",
+
+    bonuses: {
+
+      risk: 15,
+      chaos: 20,
+      impulsivity: 10,
+      luck: 5
+
+    }
+
+  },
+
+
+  builder: {
+
+    name: "The Builder",
+
+    description:
+      "You like progress. You are willing to sacrifice today for something you believe will be better tomorrow.",
+
+    bonuses: {
+
+      career: 10,
+      knowledge: 5,
+      ambition: 15,
+      patience: 10
+
+    }
+
+  }
+
+};
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+const events = [
+
+  {
+
+    category: "CAREER",
+
+    title:
+      "Your boss offers you a promotion.",
+
+    description:
+      "It pays $15,000 more per year. Unfortunately, the hours are brutal.",
+
+    choices: [
+
+      {
+
+        title: "TAKE IT",
+
+        description:
+          "More money. More pressure.",
+
+        effects: {
+
+          money: 1500,
+          career: 15,
+          happiness: -8,
+          energy: -15,
+          ambition: 10,
+          risk: 5
+
+        }
+
+      },
+
+      {
+
+        title: "NEGOTIATE",
+
+        description:
+          "Ask for better terms.",
+
+        effects: {
+
+          money: 700,
+          career: 8,
+          happiness: 3,
+          patience: 7,
+          ambition: 5
+
+        }
+
+      },
+
+      {
+
+        title: "DECLINE",
+
+        description:
+          "Protect your free time.",
+
+        effects: {
+
+          happiness: 8,
+          energy: 10,
+          career: -3,
+          patience: 8
+
+        }
+
+      },
+
+      {
+
+        title: "QUIT",
+
+        description:
+          "Burn the bridge. Build something else.",
+
+        effects: {
+
+          money: -500,
+          career: 5,
+          happiness: 15,
+          energy: 5,
+          risk: 15,
+          chaos: 10
+
+        }
+
+      }
+
+    ]
+
+  },
+
+
+  {
+
+    category: "MONEY",
+
+    title:
+      "You unexpectedly receive $1,000.",
+
+    description:
+      "Nobody knows why. Nobody is asking questions. Yet.",
+
+    choices: [
+
+      {
+
+        title: "SAVE IT",
+
+        description:
+          "Future-you says thanks.",
+
+        effects: {
+
+          money: 1000,
+          patience: 12
+
+        }
+
+      },
+
+      {
+
+        title: "INVEST IT",
+
+        description:
+          "Maybe money makes money.",
+
+        effects: {
+
+          money: 1400,
+          risk: 12,
+          luck: -5
+
+        }
+
+      },
+
+      {
+
+        title: "SPEND IT",
+
+        description:
+          "Future-you can deal with it.",
+
+        effects: {
+
+          money: 1000,
+          happiness: 15,
+          energy: 5,
+          impulsivity: 12
+
+        }
+
+      },
+
+      {
+
+        title: "HELP SOMEONE",
+
+        description:
+          "Give it away.",
+
+        effects: {
+
+          relationships: 15,
+          happiness: 10,
+          cooperation: 15,
+          social: 8
+
+        }
+
+      }
+
+    ]
+
+  },
+
+
+  {
+
+    category: "FRIENDS",
+
+    title:
+      "Your friends want you to go out tonight.",
+
+    description:
+      "You are exhausted. They insist this will be 'good for you.'",
+
+    choices: [
+
+      {
+
+        title: "GO OUT",
+
+        description:
+          "Sleep is overrated.",
+
+        effects: {
+
+          happiness: 12,
+          relationships: 10,
+          energy: -20,
+          social: 12
+
+        }
+
+      },
+
+      {
+
+        title: "STAY HOME",
+
+        description:
+          "Your couch understands you.",
+
+        effects: {
+
+          happiness: 5,
+          energy: 15,
+          social: -8,
+          patience: 5
+
+        }
+
+      },
+
+      {
+
+        title: "HOST EVERYONE",
+
+        description:
+          "Turn your house into the venue.",
+
+        effects: {
+
+          happiness: 10,
+          relationships: 15,
+          energy: -15,
+          social: 15,
+          cooperation: 8
+
+        }
+
+      },
+
+      {
+
+        title: "GO SOMEWHERE RANDOM",
+
+        description:
+          "Let fate decide.",
+
+        effects: {
+
+          happiness: 8,
+          relationships: 3,
+          energy: -10,
+          chaos: 20,
+          luck: 8
+
+        }
+
+      }
+
+    ]
+
+  },
+
+
+  {
+
+    category: "KNOWLEDGE",
+
+    title:
+      "You have the opportunity to take a difficult course.",
+
+    description:
+      "It will consume your evenings for three months.",
+
+    choices: [
+
+      {
+
+        title: "DO IT",
+
+        description:
+          "Become aggressively knowledgeable.",
+
+        effects: {
+
+          knowledge: 20,
+          career: 8,
+          energy: -15,
+          patience: 12,
+          ambition: 10
+
+        }
+
+      },
+
+      {
+
+        title: "TAKE THE EASY COURSE",
+
+        description:
+          "Knowledge, but make it comfortable.",
+
+        effects: {
+
+          knowledge: 8,
+          energy: -5,
+          happiness: 3
+
+        }
+
+      },
+
+      {
+
+        title: "LEARN ON YOUR OWN",
+
+        description:
+          "No syllabus required.",
+
+        effects: {
+
+          knowledge: 15,
+          patience: 10,
+          energy: -5
+
+        }
+
+      },
+
+      {
+
+        title: "ABSOLUTELY NOT",
+
+        description:
+          "You already know enough.",
+
+        effects: {
+
+          happiness: 5,
+          energy: 10,
+          impulsivity: 5
+
+        }
+
+      }
+
+    ]
+
+  },
+
+
+  {
+
+    category: "RELATIONSHIPS",
+
+    title:
+      "A friend needs help moving.",
+
+    description:
+      "They promise pizza. They also have approximately seventeen boxes of books.",
+
+    choices: [
+
+      {
+
+        title: "HELP",
+
+        description:
+          "Friendship is heavy.",
+
+        effects: {
+
+          relationships: 20,
+          happiness: 8,
+          energy: -20,
+          cooperation: 15
+
+        }
+
+      },
+
+      {
+
+        title: "HELP FOR PIZZA",
+
+        description:
+          "Negotiation is still friendship.",
+
+        effects: {
+
+          relationships: 12,
+          happiness: 7,
+          energy: -15,
+          money: 20
+
+        }
+
+      },
+
+      {
+
+        title: "SEND MONEY",
+
+        description:
+          "Outsource the lifting.",
+
+        effects: {
+
+          relationships: 8,
+          money: -100,
+          energy: 5,
+          cooperation: 8
+
+        }
+
+      },
+
+      {
+
+        title: "DISAPPEAR",
+
+        description:
+          "You suddenly become extremely difficult to reach.",
+
+        effects: {
+
+          relationships: -15,
+          happiness: 3,
+          energy: 5,
+          impulsivity: 8
+
+        }
+
+      }
+
+    ]
+
+  },
+
+
+  {
+
+    category: "RISK",
+
+    title:
+      "A risky opportunity appears.",
+
+    description:
+      "Potentially life-changing. Potentially a spectacular mistake.",
+
+    choices: [
+
+      {
+
+        title: "GO ALL IN",
+
+        description:
+          "YOLO, but with spreadsheets.",
+
+        effects: {
+
+          money: 1800,
+          career: 15,
+          risk: 20,
+          chaos: 12,
+          luck: -5
+
+        }
+
+      },
+
+      {
+
+        title: "TEST IT FIRST",
+
+        description:
+          "Small bet. Small disaster.",
+
+        effects: {
+
+          money: 500,
+          career: 8,
+          risk: 8,
+          patience: 8
+
+        }
+
+      },
+
+      {
+
+        title: "PASS",
+
+        description:
+          "Not every door needs opening.",
+
+        effects: {
+
+          happiness: 5,
+          patience: 10,
+          risk: -8
+
+        }
+
+      },
+
+      {
+
+        title: "ASK EVERYONE",
+
+        description:
+          "Crowdsource your existential crisis.",
+
+        effects: {
+
+          relationships: 8,
+          knowledge: 8,
+          social: 10,
+          cooperation: 8
+
+        }
+
+      }
+
+    ]
+
+  },
+
+
+  {
+
+    category: "BAD WEEK",
+
+    title:
+      "Everything goes wrong.",
+
+    description:
+      "Your plans collapse. Your coffee is cold. Someone says 'circle back.'",
+
+    choices: [
+
+      {
+
+        title: "PUSH THROUGH",
+
+        description:
+          "You refuse to be defeated.",
+
+        effects: {
+
+          career: 5,
+          happiness: -8,
+          energy: -15,
+          ambition: 8
+
+        }
+
+      },
+
+      {
+
+        title: "TAKE A BREAK",
+
+        description:
+          "You are a human, not a machine.",
+
+        effects: {
+
+          happiness: 10,
+          energy: 20,
+          career: -2
+
+        }
+
+      },
+
+      {
+
+        title: "CALL A FRIEND",
+
+        description:
+          "Humans are collaborative creatures.",
+
+        effects: {
+
+          relationships: 12,
+          happiness: 10,
+          social: 10
+
+        }
+
+      },
+
+      {
+
+        title: "MAKE A RADICAL CHANGE",
+
+        description:
+          "Clearly the solution is chaos.",
+
+        effects: {
+
+          happiness: 12,
+          energy: -5,
+          career: 5,
+          chaos: 20,
+          risk: 15
+
+        }
+
+      }
+
+    ]
+
+  },
+
+
+  {
+
+    category: "ROMANCE",
+
+    title:
+      "Someone interesting asks you out.",
+
+    description:
+      "They seem funny, intelligent, and slightly suspiciously well-adjusted.",
+
+    choices: [
+
+      {
+
+        title: "SAY YES",
+
+        description:
+          "You have nothing to lose. Probably.",
+
+        effects: {
+
+          happiness: 15,
+          relationships: 15,
+          energy: -5,
+          social: 10,
+          risk: 5
+
+        }
+
+      },
+
+      {
+
+        title: "TAKE IT SLOW",
+
+        description:
+          "Gather additional data.",
+
+        effects: {
+
+          relationships: 8,
+          happiness: 5,
+          patience: 12
+
+        }
+
+      },
+
+      {
+
+        title: "JUST BE FRIENDS",
+
+        description:
+          "Friendship is underrated.",
+
+        effects: {
+
+          relationships: 10,
+          happiness: 5,
+          cooperation: 8
+
+        }
+
+      },
+
+      {
+
+        title: "RUN",
+
+        description:
+          "Romance is a statistically dangerous activity.",
+
+        effects: {
+
+          energy: 10,
+          happiness: 2,
+          impulsivity: 8
+
+        }
+
+      }
+
+    ]
+
+  },
+
+
+  {
+
+    category: "HEALTH",
+
+    title:
+      "Your body sends you a warning.",
+
+    description:
+      "You've been pushing hard. You could keep going, but your energy reserves disagree.",
+
+    choices: [
+
+      {
+
+        title: "REST",
+
+        description:
+          "Listen to the meat machine.",
+
+        effects: {
+
+          energy: 25,
+          happiness: 8,
+          career: -3
+
+        }
+
+      },
+
+      {
+
+        title: "EXERCISE",
+
+        description:
+          "Perhaps movement is the answer.",
+
+        effects: {
+
+          energy: 10,
+          happiness: 8,
+          health: 5
+
+        }
+
+      },
+
+      {
+
+        title: "KEEP GOING",
+
+        description:
+          "Future-you can deal with it.",
+
+        effects: {
+
+          career: 8,
+          energy: -25,
+          happiness: -8,
+          ambition: 8
+
+        }
+
+      },
+
+      {
+
+        title: "CHANGE YOUR LIFE",
+
+        description:
+          "If the system is broken, redesign the system.",
+
+        effects: {
+
+          happiness: 15,
+          energy: 10,
+          career: -5,
+          chaos: 15,
+          risk: 10
+
+        }
+
+      }
+
+    ]
+
+  },
+
+
+  {
+
+    category: "COMMUNITY",
+
+    title:
+      "Your neighborhood has a problem.",
+
+    description:
+      "Everyone complains about it. Nobody has done anything about it.",
+
+    choices: [
+
+      {
+
+        title: "ORGANIZE PEOPLE",
+
+        description:
+          "Turn complaints into a project.",
+
+        effects: {
+
+          relationships: 20,
+          career: 5,
+          cooperation: 20,
+          social: 15
+
+        }
+
+      },
+
+      {
+
+        title: "SOLVE IT YOURSELF",
+
+        description:
+          "Sometimes somebody just has to do it.",
+
+        effects: {
+
+          happiness: 10,
+          energy: -15,
+          cooperation: 8
+
+        }
+
+      },
+
+      {
+
+        title: "CALL THE GOVERNMENT",
+
+        description:
+          "This seems like someone's job.",
+
+        effects: {
+
+          knowledge: 5,
+          patience: -5,
+          cooperation: 5
+
+        }
+
+      },
+
+      {
+
+        title: "IGNORE IT",
+
+        description:
+          "Someone else will probably handle it.",
+
+        effects: {
+
+          energy: 5,
+          happiness: -3,
+          cooperation: -8
+
+        }
+
+      }
+
+    ]
+
+  },
+
+
+  {
+
+    category: "CHAOS",
+
+    title:
+      "You wake up and decide to completely change your plan.",
+
+    description:
+      "There is no obvious reason. Something inside your brain simply says: 'What if we didn't?'",
+
+    choices: [
+
+      {
+
+        title: "DO IT",
+
+        description:
+          "Embrace the plot twist.",
+
+        effects: {
+
+          happiness: 15,
+          luck: 10,
+          chaos: 25,
+          risk: 15,
+          impulsivity: 15
+
+        }
+
+      },
+
+      {
+
+        title: "WRITE A PLAN",
+
+        description:
+          "Chaos with documentation.",
+
+        effects: {
+
+          knowledge: 8,
+          patience: 8,
+          chaos: 10,
+          ambition: 5
+
+        }
+
+      },
+
+      {
+
+        title: "WAIT A WEEK",
+
+        description:
+          "Maybe this is temporary insanity.",
+
+        effects: {
+
+          patience: 15,
+          energy: 5,
+          impulsivity: -8
+
+        }
+
+      },
+
+      {
+
+        title: "ASK ROBOTFRIEND",
+
+        description:
+          "Finally, someone is asking the important questions.",
+
+        effects: {
+
+          knowledge: 5,
+          happiness: 8,
+          chaos: 8
+
+        }
+
+      }
+
+    ]
+
+  }
+
+];
+
+
+/* =========================================================
+   GAME VARIABLES
+========================================================= */
+
+let currentEvent = 0;
+
+let usedEvents = [];
+
+
+/* =========================================================
+   PERSONALITY SELECTION
+========================================================= */
+
+function choosePersonality(type, button) {
+
+  player.personality = type;
+
+  document
+    .querySelectorAll(".personality")
+    .forEach(item => {
+
+      item.classList.remove("selected");
+
+    });
+
+  button.classList.add("selected");
+
+  document.getElementById("startButton").disabled = false;
+
+}
+
+
+/* =========================================================
+   START GAME
+========================================================= */
+
+function startGame() {
+
+  const name =
+    document
+      .getElementById("playerName")
+      .value
+      .trim();
+
+  player.name =
+    name || "RobotFriend";
+
+  applyPersonality();
+
+  document
+    .getElementById("characterScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("gameScreen")
+    .classList.remove("hidden");
+
+  addLog(
+    `${player.name} woke up and entered the simulation.`
+  );
+
+  updateStats();
+
+  showEvent();
+
+}
+
+
+/* =========================================================
+   APPLY PERSONALITY
+========================================================= */
+
+function applyPersonality() {
+
+  const personality =
+    personalities[player.personality];
+
+  if (!personality) return;
+
+  Object.entries(personality.bonuses)
+    .forEach(([stat, amount]) => {
+
+      player[stat] += amount;
+
+    });
+
+}
+
+
+/* =========================================================
+   SHOW EVENT
+========================================================= */
+
+function showEvent() {
+
+  if (player.day > 15) {
+
+    endGame();
+
+    return;
+
+  }
+
+
+  /*
+    Make sure we don't immediately
+    repeat an event.
+  */
+
+  let availableEvents =
+    events.filter(
+      (_, index) =>
+        !usedEvents.includes(index)
+    );
+
+
+  /*
+    Reset once all events have been used.
+  */
+
+  if (availableEvents.length === 0) {
+
+    usedEvents = [];
+
+    availableEvents = [...events];
+
+  }
+
+
+  const randomIndex =
+    Math.floor(
+      Math.random() *
+      availableEvents.length
+    );
+
+
+  const event =
+    availableEvents[randomIndex];
+
+
+  const actualIndex =
+    events.indexOf(event);
+
+
+  usedEvents.push(actualIndex);
+
+  currentEvent = actualIndex;
+
+
+  document
+    .getElementById("eventCategory")
+    .textContent =
+    event.category;
+
+
+  document
+    .getElementById("eventTitle")
+    .textContent =
+    event.title;
+
+
+  document
+    .getElementById("eventDescription")
+    .textContent =
+    event.description;
+
+
+  const choices =
+    document.getElementById("choices");
+
+
+  choices.innerHTML = "";
+
+
+  event.choices.forEach(
+    (choice, index) => {
+
+      const button =
+        document.createElement("button");
+
+
+      button.className = "choice";
+
+
+      button.innerHTML = `
+
+        <span class="choice-title">
+          ${choice.title}
+        </span>
+
+        <span class="choice-description">
+          ${choice.description}
+        </span>
+
+      `;
+
+
+      button.onclick = () =>
+        makeChoice(choice, event);
+
+
+      choices.appendChild(button);
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   MAKE CHOICE
+========================================================= */
+
+function makeChoice(choice, event) {
+
+  /*
+    Disable buttons immediately so
+    one choice cannot be selected twice.
+  */
+
+  document
+    .querySelectorAll(".choice")
+    .forEach(button => {
+
+      button.disabled = true;
+
+    });
+
+
+  applyEffects(choice.effects);
+
+
+  addLog(
+    `Day ${player.day}: ${event.category} — ${choice.title}`
+  );
+
+
+  /*
+    Natural daily changes.
+  */
+
+  player.energy -= 3;
+
+  player.day++;
+
+
+  /*
+    Occasionally luck changes
+    randomly.
+  */
+
+  if (Math.random() < 0.25) {
+
+    const luckChange =
+      Math.random() < 0.5
+        ? -3
+        : 3;
+
+    player.luck += luckChange;
+
+  }
+
+
+  clampStats();
+
+  updateStats();
+
+
+  document
+    .getElementById("day")
+    .textContent =
+    player.day;
+
+
+  setTimeout(
+    showEvent,
+    350
+  );
+
+}
+
+
+/* =========================================================
+   APPLY EFFECTS
+========================================================= */
+
+function applyEffects(effects) {
+
+  Object.entries(effects)
+    .forEach(([stat, amount]) => {
+
+      if (
+        Object.prototype.hasOwnProperty
+          .call(player, stat)
+      ) {
+
+        player[stat] += amount;
+
+      }
+
+    });
+
+}
+
+
+/* =========================================================
+   KEEP STATS IN RANGE
+========================================================= */
+
+function clampStats() {
+
+  const boundedStats = [
+
+    "knowledge",
+    "happiness",
+    "energy",
+    "relationships",
+    "career",
+    "luck",
+
+    "risk",
+    "patience",
+    "social",
+    "ambition",
+    "impulsivity",
+    "cooperation",
+    "chaos"
+
+  ];
+
+
+  boundedStats.forEach(stat => {
+
+    player[stat] =
+      Math.max(
+        0,
+        Math.min(
+          100,
+          player[stat]
+        )
+      );
+
+  });
+
+
+  player.money =
+    Math.max(
+      0,
+      player.money
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE DISPLAYED STATS
+========================================================= */
+
+function updateStats() {
+
+  document
+    .getElementById("money")
+    .textContent =
+    `$${Math.round(player.money).toLocaleString()}`;
+
+
+  document
+    .getElementById("knowledge")
+    .textContent =
+    Math.round(player.knowledge);
+
+
+  document
+    .getElementById("happiness")
+    .textContent =
+    Math.round(player.happiness);
+
+
+  document
+    .getElementById("energy")
+    .textContent =
+    Math.round(player.energy);
+
+
+  document
+    .getElementById("relationships")
+    .textContent =
+    Math.round(player.relationships);
+
+
+  document
+    .getElementById("career")
+    .textContent =
+    Math.round(player.career);
+
+
+  document
+    .getElementById("luck")
+    .textContent =
+    Math.round(player.luck);
+
+}
+
+
+/* =========================================================
+   LIFE LOG
+========================================================= */
+
+function addLog(message) {
+
+  const log =
+    document.getElementById("log");
+
+
+  const entry =
+    document.createElement("div");
+
+
+  entry.className =
+    "log-entry";
+
+
+  entry.textContent =
+    message;
+
+
+  log.prepend(entry);
+
+
+  /*
+    Keep the log manageable.
+  */
+
+  while (
+    log.children.length > 8
+  ) {
+
+    log.removeChild(
+      log.lastChild
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   CALCULATE FINAL PROFILE
+========================================================= */
+
+function calculateProfile() {
+
+  const profiles = {
+
+    strategist:
+      player.knowledge +
+      player.patience +
+      player.career,
+
+    connector:
+      player.relationships +
+      player.social +
+      player.cooperation,
+
+    wild:
+      player.risk +
+      player.chaos +
+      player.impulsivity,
+
+    builder:
+      player.career +
+      player.ambition +
+      player.patience
+
+  };
+
+
+  return Object
+    .entries(profiles)
+    .sort(
+      (a, b) => b[1] - a[1]
+    )[0][0];
+
+}
+
+
+/* =========================================================
+   END GAME
+========================================================= */
+
+function endGame() {
+
+  document
+    .getElementById("gameScreen")
+    .classList.add("hidden");
+
+
+  document
+    .getElementById("endingScreen")
+    .classList.remove("hidden");
+
+
+  const profile =
+    calculateProfile();
+
+
+  const profileData =
+    personalities[profile];
+
+
+  document
+    .getElementById("endingTitle")
+    .textContent =
+    `Well, ${player.name}...`;
+
+
+  document
+    .getElementById("endingDescription")
+    .textContent =
+    getEndingMessage();
+
+
+  document
+    .getElementById("profileName")
+    .textContent =
+    profileData.name;
+
+
+  document
+    .getElementById("profileDescription")
+    .textContent =
+    profileData.description;
+
+
+  document
+    .getElementById("finalStats")
+    .innerHTML = `
+
+      <div class="final-stat">
+        <small>Money</small>
+        <strong>
+          $${Math.round(player.money).toLocaleString()}
+        </strong>
+      </div>
+
+      <div class="final-stat">
+        <small>Happiness</small>
+        <strong>
+          ${Math.round(player.happiness)}
+        </strong>
+      </div>
+
+      <div class="final-stat">
+        <small>Knowledge</small>
+        <strong>
+          ${Math.round(player.knowledge)}
+        </strong>
+      </div>
+
+      <div class="final-stat">
+        <small>Relationships</small>
+        <strong>
+          ${Math.round(player.relationships)}
+        </strong>
+      </div>
+
+      <div class="final-stat">
+        <small>Career</small>
+        <strong>
+          ${Math.round(player.career)}
+        </strong>
+      </div>
+
+      <div class="final-stat">
+        <small>Luck</small>
+        <strong>
+          ${Math.round(player.luck)}
+        </strong>
+      </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   ENDING MESSAGE
+========================================================= */
+
+function getEndingMessage() {
+
+  const happiness =
+    player.happiness;
+
+  const money =
+    player.money;
+
+  const career =
+    player.career;
+
+  const relationships =
+    player.relationships;
+
+
+  if (
+    happiness >= 80 &&
+    relationships >= 70
+  ) {
+
+    return `
+      Somehow you managed to accumulate
+      happiness AND people who actually like you.
+      RobotFriend is impressed.
+    `;
+
+  }
+
+
+  if (
+    money >= 6000 &&
+    career >= 70
+  ) {
+
+    return `
+      You optimized aggressively.
+      The economy may never recover,
+      but your bank account seems fine.
+    `;
+
+  }
+
+
+  if (
+    relationships >= 80
+  ) {
+
+    return `
+      Your greatest achievement wasn't money,
+      status, or knowledge.
+      It was building a ridiculous network
+      of humans who would probably help you
+      move seventeen boxes of books.
+    `;
+
+  }
+
+
+  if (
+    happiness <= 30
+  ) {
+
+    return `
+      RobotFriend has detected a concerning
+      number of questionable life choices.
+      Perhaps next time we invest in sleep.
+    `;
+
+  }
+
+
+  if (
+    player.chaos >= 80
+  ) {
+
+    return `
+      You chose chaos so consistently that
+      chaos eventually became a strategy.
+      Honestly, impressive.
+    `;
+
+  }
+
+
+  return `
+    You didn't exactly follow a plan.
+
+    But then again, nobody really does.
+
+    Your choices created a trajectory,
+    and that trajectory became your life.
+  `;
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+document
+  .getElementById("day")
+  .textContent =
+  player.day;
