@@ -1,6 +1,6 @@
 # Hi, it’s Chelsea Dahlen
 
-### 🔬 Research • Systems • Human Behavior • Strategy
+### Research • Systems • Human Behavior • Strategy
 
 > **How do people behave within complex systems — and how can we design better systems for human flourishing?**
 
