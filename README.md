@@ -1,47 +1,42 @@
-# Hey, I'm Chelsea. 👋
+<div align="center">
+  <img src="assets/banner.svg" alt="chelsintheweb — Experimental Psychology, Data Science, Human Behavior" width="100%" />
+</div>
 
-### Experimental Psychology | Human Behavior 
+<br>
 
-**I study the things we do without questioning why.**
+# I study the things we do without questioning *why.*
 
-I'm a graduate researcher in Experimental Psychology at Tarleton State University, exploring the intersection of social conditioning, institutional authority, human decision-making, and emerging technologies.
+I'm **Chelsea Dahlen**, a graduate researcher in experimental psychology at Tarleton State University. My interests sit at the intersection of **social conditioning, institutional authority, human judgment, and emerging technology**.
 
-My background spans criminal justice, corporate operations, process improvement, and now experimental research. I like asking questions, finding interesting datasets, and figuring out what the numbers actually tell us.
+My path here has included criminal justice, corporate operations, and process improvement. Now I use experimental design and quantitative methods to investigate the systems and assumptions shaping human behavior.
+
+**Question everything. Test what matters.**
 
 ---
 
-### 🔬 Currently Investigating
+### `01 / CURRENT INVESTIGATIONS`
 
-- **Social Conditioning & Body Hair** — How cultural expectations influence women's grooming decisions.
-- **AI & Institutional Authority** — Whether algorithmic recommendations amplify or reduce authority bias.
-- **Trustworthiness & Perception** — How perceived attractiveness and visual characteristics influence judgments of trust. 
-- **Criminal Justice & Institutional Systems** — Using data to investigate policy, institutional behavior, and decision-making.
+| Project | Question | Status |
+| :--- | :--- | :--- |
+| **Social Conditioning & Body Hair** | How do cultural norms shape women's grooming decisions? | Research development |
+| **AI & Institutional Authority** | Do algorithmic recommendations amplify or reduce authority bias? | Proposed research |
+| **Trustworthiness & Perception** | How do attractiveness and image characteristics relate to trust ratings? | Data analysis |
+| **Criminal Justice & Institutional Systems** | How can quantitative evidence inform institutional policy? | Research exploration |
 
-### 📊 My Research Toolkit
+### `02 / RESEARCH TOOLKIT`
 
-`R` · `Linear Regression` · `Logistic Regression` · `Mixed-Effects Models` · `Mediation Analysis` · `Machine Learning` · `Data Visualization` · `Python` · `Blender` · `Data Management` · `Java & JSON` · `Tableau` · `SQL` 
+`R` · `Linear & Logistic Regression` · `Mixed-Effects Models` · `Mediation Analysis` · `Data Visualization`· `Python` · `Machine Learning` · `Statistical Modeling` · `Java` · `JSON` · `SQL` · `Blender` · `Tableau` 
 
-### 🧪 Inside the Lab
-
-| Project | Research Focus | Methods |
-|---|---|---|
-| Social Conditioning & Body Hair | Grooming norms and social influence | Regression |
-| Perceived Trustworthiness | Attractiveness and trust judgments | Mixed-Effects Models |
-| Authority Bias & AI | Human-AI decision-making | Experimental Design |
-| Anxiety & Modern World Demands | Student well-being and behavior | Longitudinal Analysis |
-| Dream content | Student reported journal entries | Longitudinal Analysis |
-| CJ Research | Institutional systems and policy | Quantitative Analysis |
-
-### 💭 Questions Worth Asking
+### `03 / QUESTIONS WORTH ASKING`
 
 > What happens when we stop treating socially learned behavior as natural behavior?
-
-> Can artificial intelligence challenge institutional bias, or does it simply automate it?
-
-> How much of what we believe is actually something we've tested?
+>
+> Can AI challenge institutional bias—or simply automate it?
+>
+> How much of what we believe have we actually tested?
 
 ---
 
-**Always learning. Usually questioning. Occasionally getting along with R.**
+<sub>ALWAYS LEARNING. USUALLY QUESTIONING. OCCASIONALLY GETTING ALONG WITH R.</sub>
 
-*Research, code, and works in progress.*
+<sub>Research / Code / Works in progress</sub>
