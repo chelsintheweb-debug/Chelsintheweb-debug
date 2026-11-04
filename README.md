@@ -14,22 +14,23 @@ My background spans criminal justice, corporate operations, process improvement,
 
 - **Social Conditioning & Body Hair** — How cultural expectations influence women's grooming decisions.
 - **AI & Institutional Authority** — Whether algorithmic recommendations amplify or reduce authority bias.
-- **Trustworthiness & Perception** — How perceived attractiveness and visual characteristics influence judgments of trust.
+- **Trustworthiness & Perception** — How perceived attractiveness and visual characteristics influence judgments of trust. 
 - **Criminal Justice & Institutional Systems** — Using data to investigate policy, institutional behavior, and decision-making.
 
 ### 📊 My Research Toolkit
 
-`R` · `RStudio` · `Linear Regression` · `Logistic Regression` · `ANOVA` · `ANCOVA` · `Mixed-Effects Models` · `Mediation Analysis` · `Experimental Design` · `Data Visualization`
+`R` · `Linear Regression` · `Logistic Regression` · `Mixed-Effects Models` · `Mediation Analysis` · `Machine Learning` · `Data Visualization` · `Python` · `Blender` · `Data Management` · `Java & JSON` · `Tableau` · `SQL` 
 
 ### 🧪 Inside the Lab
 
 | Project | Research Focus | Methods |
 |---|---|---|
-| Social Conditioning & Body Hair | Grooming norms and social influence | Regression, ANOVA |
-| Perceived Trustworthiness | Attractiveness and trust judgments | Linear Mixed-Effects Models |
+| Social Conditioning & Body Hair | Grooming norms and social influence | Regression |
+| Perceived Trustworthiness | Attractiveness and trust judgments | Mixed-Effects Models |
 | Authority Bias & AI | Human-AI decision-making | Experimental Design |
-| Wheel of Life | Student well-being and behavior | Longitudinal Analysis |
-| Criminal Justice Research | Institutional systems and policy | Quantitative Analysis |
+| Anxiety & Modern World Demands | Student well-being and behavior | Longitudinal Analysis |
+| Dream content | Student reported journal entries | Longitudinal Analysis |
+| CJ Research | Institutional systems and policy | Quantitative Analysis |
 
 ### 💭 Questions Worth Asking
 
