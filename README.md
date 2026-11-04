@@ -1,88 +1,46 @@
-# Hi, it’s Chelsea Dahlen
+# Hey, I'm Chelsea. 👋
 
-### Research • Systems • Human Behavior • Strategy
+### Experimental Psychology | Human Behavior 
 
-> **How do people behave within complex systems — and how can we design better systems for human flourishing?**
+**I study the things we do without questioning why.**
 
-I explore the intersection of **psychology, sociology, organizational behavior, strategy, technology, governance, and systems thinking.**
+I'm a graduate researcher in Experimental Psychology at Tarleton State University, exploring the intersection of social conditioning, institutional authority, human decision-making, and emerging technologies.
 
-My work focuses on connecting big societal problems to the individual decisions, group dynamics, incentives, and institutional structures that shape them.
-
-## What I'm Interested In
-
-**Psychology & Cognition**  
-How people think, decide, adapt, believe, and behave.
-
-**Groups & Organizations**  
-Leadership, religion, cooperation, conflict, culture, incentives, and collective decision-making.
-
-**Governance & Institutions**  
-How systems distribute power, resources, responsibility, and opportunity.
-
-**Technology & Society**  
-How technology changes human behavior, organizations, and systems of power.
-
-**Criminal Justice**  
-Behavior, rehabilitation, probation, prevention, and alternatives to traditional systems.
-
-**Humanitarian Systems**  
-Poverty, food security, inequality, community development, and scalable solutions.
-
-**Strategic Decision-Making**  
-Game theory, risk, probability, optimization, and the psychology of choice.
+My background spans criminal justice, corporate operations, process improvement, and now experimental research. I like asking questions, finding interesting datasets, and figuring out what the numbers actually tell us.
 
 ---
 
-# 🤖 RobotFriend
+### 🔬 Currently Investigating
 
-## A Tiny Life Decision Simulator
+- **Social Conditioning & Body Hair** — How cultural expectations influence women's grooming decisions.
+- **AI & Institutional Authority** — Whether algorithmic recommendations amplify or reduce authority bias.
+- **Trustworthiness & Perception** — How perceived attractiveness and visual characteristics influence judgments of trust.
+- **Criminal Justice & Institutional Systems** — Using data to investigate policy, institutional behavior, and decision-making.
 
-**One life. A thousand decisions. Some skill. Some luck. Mostly questionable choices.**
+### 📊 My Research Toolkit
 
-### 👉 [PLAY ROBOTFRIEND](game/)
+`R` · `RStudio` · `Linear Regression` · `Logistic Regression` · `ANOVA` · `ANCOVA` · `Mixed-Effects Models` · `Mediation Analysis` · `Experimental Design` · `Data Visualization`
 
-You wake up.
+### 🧪 Inside the Lab
 
-You have:
+| Project | Research Focus | Methods |
+|---|---|---|
+| Social Conditioning & Body Hair | Grooming norms and social influence | Regression, ANOVA |
+| Perceived Trustworthiness | Attractiveness and trust judgments | Linear Mixed-Effects Models |
+| Authority Bias & AI | Human-AI decision-making | Experimental Design |
+| Wheel of Life | Student well-being and behavior | Longitudinal Analysis |
+| Criminal Justice Research | Institutional systems and policy | Quantitative Analysis |
 
-💰 $2,000  
-🧠 Knowledge: 50  
-❤️ Happiness: 65  
-⚡ Energy: 80  
-👥 Relationships: 40  
-🎲 Luck: 50  
-📈 Career: 35
+### 💭 Questions Worth Asking
 
-Then life starts happening.
+> What happens when we stop treating socially learned behavior as natural behavior?
+
+> Can artificial intelligence challenge institutional bias, or does it simply automate it?
+
+> How much of what we believe is actually something we've tested?
 
 ---
 
-### DAY 1
+**Always learning. Usually questioning. Occasionally getting along with R.**
 
-Your boss offers you a promotion.
-
-It pays **$15,000 more per year**...
-
-…but the hours are brutal.
-
-**What do you do?**
-
-🟢 TAKE IT  
-🔵 NEGOTIATE  
-🟡 DECLINE  
-🟣 QUIT
-
-There isn't necessarily a "correct" answer.
-
-Every decision changes the system.
-
-```text
-DECISION
-   ↓
-CONSEQUENCE
-   ↓
-NEW STATE
-   ↓
-NEXT DECISION
-   ↓
-NEW TRAJECTORY
+*Research, code, and works in progress.*
