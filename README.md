@@ -1,12 +1,17 @@
 <div align="center">
-  <img src="assets/banner.svg" alt="chelsintheweb — Experimental Psychology, Data Science, Human Behavior" width="100%" />
-</div>
 
-<br>
+# THE HUMAN EXPERIMENT_
+
+### `chelsintheweb`
+
+**Experimental Psychology • Big Data • Human Behavior**
+
+---
+
 
 # I study the things we do without questioning *why.*
 
-I'm **Chelsea Dahlen**, a graduate researcher in experimental psychology at Tarleton State University. My interests sit at the intersection of **social conditioning, institutional authority, human judgment, and emerging technology**.
+I'm **Chels Dahlen**, a graduate researcher in experimental psychology at Tarleton State University. My interests sit at the intersection of **social conditioning, institutional authority, human judgment, and emerging technology**.
 
 My path here has included criminal justice, corporate operations, and process improvement. Now I use experimental design and quantitative methods to investigate the systems and assumptions shaping human behavior.
 
